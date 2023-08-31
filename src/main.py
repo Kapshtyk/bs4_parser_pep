@@ -147,17 +147,16 @@ def pep(session):
             .text
         )
         pep_detailed_data = pep_detailed(*pep, dt)
-        if dt not in EXPECTED_STATUS[pep.status]:
+        if dt not in EXPECTED_STATUS.get(pep.status, []):
             logging.warning(
                 f"Статус PEP {pep.number} не соответствует ожидаемому\n"
-                f"Ожидаемые статусы: {EXPECTED_STATUS[pep.status]}\n"
+                f"Ожидаемые статусы: {EXPECTED_STATUS.get(pep.status, 'Unknown status')}\n"
                 f"Получено: {dt}"
             )
         pep_detailed_array.append(pep_detailed_data)
 
     counted = collections.Counter([i[4] for i in pep_detailed_array[1::]])
-    for key, value in counted.items():
-        results.append((key, value))
+    results.extend(counted.items())
     results.append(("Total", sum(counted.values())))
 
     return results
