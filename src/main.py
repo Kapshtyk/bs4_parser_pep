@@ -150,7 +150,8 @@ def pep(session):
         if dt not in EXPECTED_STATUS.get(pep.status, []):
             logging.warning(
                 f"Статус PEP {pep.number} не соответствует ожидаемому\n"
-                f"Ожидаемые статусы: {EXPECTED_STATUS.get(pep.status, 'Unknown status')}\n"
+                f"Ожидаемые статусы: "
+                f"{EXPECTED_STATUS.get(pep.status, 'Unknown status')}\n"
                 f"Получено: {dt}"
             )
         pep_detailed_array.append(pep_detailed_data)
